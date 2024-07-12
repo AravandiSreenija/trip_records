@@ -77,7 +77,7 @@ path library: npm install path (included in Node.js)
 Update the mongoURI variable in server.js with your actual MongoDB connection string.
 Ensure your MongoDB server is running and the database (records_data) with the trip_records collection exists.
 Replace the placeholder schema (tripSchema) in server.js with your actual schema if it differs.
-(Optional) Create a frontend application (e.g., using HTML, CSS, and JavaScript) to interact with the API.
+(Optional) Create a frontend application (e.g., using HTML and CSS) to interact with the API.
 
 <h2>Usage:</h2>
 
@@ -86,16 +86,16 @@ Access the API endpoints using tools like Postman or curl commands. Refer to the
 
 <h2>API Endpoints:</h2>
 
-/api/trips (GET): Retrieves all trips (limited by default).
-/api/trips/filter (GET): Filters trips by VendorID (example: /api/trips/filter?VendorID=1).
-/api/trips/statistics (GET): Calculates average fare for a VendorID (example: /api/trips/statistics?VendorID=1).
-/api/trips/sorted (GET): Sorts trips by a specific field (example: /api/trips/sorted?sortBy=total_amount).
-/api/trips/count (GET): Retrieves the total number of trips.
-/api/trips/tolls-and-fares/vendor (GET): Calculates total tolls and fares grouped by trip distance for a VendorID (example: /api/trips/tolls-and-fares/vendor?VendorID=1).
-/api/trips/tolls-and-fares/payment-type (GET): Calculates total tolls and fares for a specific payment type (example: /api/trips/tolls-and-fares/payment-type?paymentType=1).
-/api/trips/high-fare/:amount (GET): Retrieves trips with a fare amount exceeding a specified value (example: /api/trips/high-fare/50).
-/api/trips/date-range (GET): Retrieves trips within a specified date range (example: /api/trips/date-range?startDate=2019-02-01&endDate=2019-02-10).
-/ (GET): Serves the static HTML page (if a frontend application is built).
+/api/trips (GET): Retrieves all trips (limited by default). <br>
+/api/trips/filter (GET): Filters trips by VendorID (example: /api/trips/filter?VendorID=1). <br>
+/api/trips/statistics (GET): Calculates average fare for a VendorID (example: /api/trips/statistics?VendorID=1). <br>
+/api/trips/sorted (GET): Sorts trips by a specific field (example: /api/trips/sorted?sortBy=total_amount). <br>
+/api/trips/count (GET): Retrieves the total number of trips. <br>
+/api/trips/tolls-and-fares/vendor (GET): Calculates total tolls and fares grouped by trip distance for a VendorID (example: /api/trips/tolls-and-fares/vendor?VendorID=1). <br>
+/api/trips/tolls-and-fares/payment-type (GET): Calculates total tolls and fares for a specific payment type (example: /api/trips/tolls-and-fares/payment-type?paymentType=1). <br>
+/api/trips/high-fare/:amount (GET): Retrieves trips with a fare amount exceeding a specified value (example: /api/trips/high-fare/50). <br>
+/api/trips/date-range (GET): Retrieves trips within a specified date range (example: /api/trips/date-range?startDate=2019-02-01&endDate=2019-02-10). <br>
+/ (GET): Serves the static HTML page (if a frontend application is built). <br>
 
 
 
