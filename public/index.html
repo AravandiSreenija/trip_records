@@ -1,0 +1,88 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Data</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Trip Data</h1>
+        <table id="trips-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Vendor ID</th>
+                    <th>Pickup Time</th>
+                    <th>Dropoff Time</th>
+                    <th>Passenger Count</th>
+                    <th>Trip Distance</th>
+                    <th>RatecodeID</th>
+                    <th>store_and_fwd_flag</th>
+                    <th>PULocationID</th>
+                    <th>DOLocationID</th>
+                    <th>payment_type</th>
+                    <th>fare_amount</th>
+                    <th>extra</th>
+                    <th>mta_tax</th>
+                    <th>tip_amount</th>
+                    <th>tolls_amount</th>
+                    <th>improvement_surcharge</th>
+                    <th>total_amount</th>
+                    <th>congestion_surcharge</th>
+                    <th>airport_fee</th>
+                </tr>
+            </thead>
+            <tbody id="trips-body">
+                <!-- Data will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Fetching trip data from the API
+        async function fetchTrips() {
+            try {
+                const response = await fetch('/api/trips');
+                const trips = await response.json();
+                const tripsBody = document.getElementById('trips-body');
+
+                trips.forEach(trip => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${trip._id}</td>
+                        <td>${trip.VendorID}</td>
+                        <td>${new Date(trip.tpep_pickup_datetime).toLocaleString()}</td>
+                        <td>${new Date(trip.tpep_dropoff_datetime).toLocaleString()}</td>
+                        <td>${trip.passenger_count}</td>
+                        <td>${trip.trip_distance}</td>
+                        
+                        <td>${trip.RatecodeID}</td>
+                        <td>${trip.store_and_fwd_flag}</td>
+                        <td>${trip.PULocationID}</td>
+                        <td>${trip.DOLocationID}</td>
+                        <td>${trip.payment_type}</td>
+                        <td>${trip.fare_amount}</td>
+                        <td>${trip.extra}</td>
+                        <td>${trip.mta_tax}</td>
+                        <td>${trip.tip_amount}</td>
+                        <td>${trip.tolls_amount}</td>
+                        <td>${trip.improvement_surcharge}</td>
+                        <td>${trip.total_amount}</td>
+                        <td>${trip.congestion_surcharge}</td>
+                        <td>${trip.airport_fee}</td>
+                    `;
+                    tripsBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching trip data:', error);
+            }
+        }
+
+        // Call the fetch function on page load
+        fetchTrips();
+    </script>
+</body>
+</html>
