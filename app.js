@@ -160,6 +160,44 @@ app.get('/api/trips/tolls-and-fares/payment-type', async (req, res) => {
     }
 });
 
+app.get('/api/trips/popular-routes', async (req, res) => {
+    try {
+        // Aggregating trips to find popular pick-up and drop-off locations
+        const popularRoutes = await Trip.aggregate([
+            {
+                $group: {
+                    _id: {
+                        pickup: '$PULocationID',
+                        dropoff: '$DOLocationID'
+                    },
+                    count: { $sum: 1 },
+                    averageDistance: { $avg: '$trip_distance' },
+                    averageFare: { $avg: '$fare_amount' }
+                }
+            },
+            { $sort: { count: -1 } }, // Sort by the most common routes
+            { $limit: 10 } // Limit to top 10 popular routes
+        ]);
+
+        // Aggregating to find peak usage times
+        const peakTimes = await Trip.aggregate([
+            {
+                $group: {
+                    _id: { $hour: '$tpep_pickup_datetime' },
+                    tripCount: { $sum: 1 }
+                }
+            },
+            { $sort: { tripCount: -1 } },
+            { $limit: 5 } // Top 5 peak hours
+        ]);
+
+        res.json({ popularRoutes, peakTimes });
+    } catch (err) {
+        res.status(500).json({ message: 'Error retrieving trip patterns', error: err });
+    }
+});
+
+
 //Get Trips with High Fare Amount
 
 
